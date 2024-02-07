@@ -64,4 +64,44 @@ public class ProductRepositoryTest {
         assertEquals(product2.getProductId(), savedProduct.getProductId());
         assertFalse(productIterator.hasNext());
     }
+
+    @Test
+    void testEditProduct() {
+        Product product = new Product();
+        product.setProductName("Sampo Cap Bambang");
+        product.setProductQuantity(100);
+        productRepository.create(product);
+
+        productRepository.edit(product.getProductId(), "Apple", 99);
+
+        assertEquals(product.getProductName(), "Apple");
+        assertEquals(product.getProductQuantity(), 99);
+    }
+
+    @Test
+    void testInvalidEditProduct() {
+        Product product = new Product();
+        product.setProductName("Sampo Cap Bambang");
+        product.setProductQuantity(100);
+        productRepository.create(product);
+
+        productRepository.edit(product.getProductId(), "Apple", 99);
+
+        assertNotEquals(product.getProductName(), "Sampo Cap Bambang");
+        assertNotEquals(product.getProductQuantity(), 100);
+    }
+
+    @Test
+    void testDeleteProduct() {
+        Product product = new Product();
+        product.setProductName("Sampo Cap Bambang");
+        product.setProductQuantity(100);
+        productRepository.create(product);
+
+        productRepository.delete(product.getProductId());
+
+        assertThrows(IllegalArgumentException.class, () -> {
+            productRepository.find(product.getProductId());
+        });
+    }
 }
