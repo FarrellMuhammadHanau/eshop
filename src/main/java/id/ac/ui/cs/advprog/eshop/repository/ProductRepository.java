@@ -48,4 +48,10 @@ public class ProductRepository {
 
         return product;
     }
+
+    public Product delete(String id){
+        Product product = find(id);
+        productData.remove(product);
+        return product;
+    }
 }
