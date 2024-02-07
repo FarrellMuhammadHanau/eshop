@@ -28,4 +28,19 @@ public class ProductTest {
     void testGetProductQuantity(){
         assertEquals(100, this.product.getProductQuantity());
     }
+
+    @Test
+    void testInvalidGetProductId (){
+        assertNotEquals("eb558e9f-1c39-460e-8860-71af6af63bd7", this.product.getProductId());
+    }
+
+    @Test
+    void testInvalidGetProductName(){
+        assertNotEquals("Farrell Muhammad Hanau", this.product.getProductName());
+    }
+
+    @Test
+    void testInvalidGetProductQuantity(){
+        assertNotEquals(99, this.product.getProductQuantity());
+    }
 }
