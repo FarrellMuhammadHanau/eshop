@@ -19,7 +19,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @ExtendWith(MockitoExtension.class)
-public class ProductControllerTest {
+class ProductControllerTest {
     private MockMvc mockMvc;
 
     @Mock
@@ -34,14 +34,14 @@ public class ProductControllerTest {
     }
 
     @Test
-    public void createProductPageTest() throws Exception{
+    void createProductPageTest() throws Exception{
         mockMvc.perform(MockMvcRequestBuilders.get("/product/create"))
                 .andExpect(MockMvcResultMatchers.status().isOk())
                 .andExpect(MockMvcResultMatchers.view().name("CreateProduct"));
     }
 
     @Test
-    public void createProductPostTest() throws Exception{
+    void createProductPostTest() throws Exception{
         mockMvc.perform(MockMvcRequestBuilders.post("/product/create")
                         .param("productName", "Apple")
                         .param("productQuantity", "10"))
@@ -50,7 +50,7 @@ public class ProductControllerTest {
     }
 
     @Test
-    public void productListPageTest() throws Exception {
+    void productListPageTest() throws Exception {
         Product product = new Product();
         product.setProductId("eb558e9f-1c39-460e-8860-71af6af63bd6");
         product.setProductName("Sampo Cap Bambang");
@@ -68,7 +68,7 @@ public class ProductControllerTest {
     }
 
     @Test
-    public void editProductPageTest() throws Exception {
+    void editProductPageTest() throws Exception {
         Product product = new Product();
         product.setProductId("eb558e9f-1c39-460e-8860-71af6af63bd6");
         product.setProductName("Sampo Cap Bambang");
@@ -83,7 +83,7 @@ public class ProductControllerTest {
     }
 
     @Test
-    public void editProductPostTest() throws Exception {
+    void editProductPostTest() throws Exception {
         mockMvc.perform(MockMvcRequestBuilders.post("/product/edit")
                         .param("productName", "Apple")
                         .param("productQuantity", "10")
@@ -93,7 +93,7 @@ public class ProductControllerTest {
     }
 
     @Test
-    public void deleteProductTest() throws Exception {
+    void deleteProductTest() throws Exception {
         mockMvc.perform(MockMvcRequestBuilders.post("/product/delete")
                 .param("id", "eb558e9f-1c39-460e-8860-71af6af63bd6"))
             .andExpect(MockMvcResultMatchers.status().is3xxRedirection())
