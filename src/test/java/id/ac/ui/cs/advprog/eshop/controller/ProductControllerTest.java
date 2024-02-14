@@ -37,7 +37,7 @@ public class ProductControllerTest {
     public void createProductPageTest() throws Exception{
         mockMvc.perform(MockMvcRequestBuilders.get("/product/create"))
                 .andExpect(MockMvcResultMatchers.status().isOk())
-                .andExpect(MockMvcResultMatchers.view().name("createProduct"));
+                .andExpect(MockMvcResultMatchers.view().name("CreateProduct"));
     }
 
     @Test
@@ -64,7 +64,7 @@ public class ProductControllerTest {
         mockMvc.perform(MockMvcRequestBuilders.get("/product/list"))
                 .andExpect(MockMvcResultMatchers.status().isOk())
                 .andExpect(MockMvcResultMatchers.model().attribute("products", productList))
-                .andExpect(MockMvcResultMatchers.view().name("productList"));
+                .andExpect(MockMvcResultMatchers.view().name("ProductList"));
     }
 
     @Test
@@ -79,7 +79,7 @@ public class ProductControllerTest {
         mockMvc.perform(MockMvcRequestBuilders.get("/product/edit/{id}", product.getProductId()))
                 .andExpect(MockMvcResultMatchers.status().isOk())
                 .andExpect(MockMvcResultMatchers.model().attribute("product", product))
-                .andExpect((MockMvcResultMatchers.view().name("editProduct")));
+                .andExpect((MockMvcResultMatchers.view().name("EditProduct")));
     }
 
     @Test
