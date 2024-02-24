@@ -11,13 +11,13 @@ import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.boot.test.mock.mockito.MockBean;
-import static org.mockito.Mockito.when;
 
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
+import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
 class ProductServiceImplTest {
@@ -27,44 +27,40 @@ class ProductServiceImplTest {
     @InjectMocks
     ProductServiceImpl productService;
 
-    @BeforeEach
-    void setUp(){
-        MockitoAnnotations.openMocks(this);
-    }
-
     @Test
     void testCreate(){
         Product product = new Product();
-        product.setProductId("eb558e9f-1c39-460e-8860-71af6af63bd6");
-        product.setProductName("Sampo Cap Bambang");
-        product.setProductQuantity(100);
+        product.setId("eb558e9f-1c39-460e-8860-71af6af63bd6");
+        product.setName("Sampo Cap Bambang");
+        product.setQuantity(100);
 
         when(productRepository.create(product)).thenReturn(product);
+
         assertEquals(productService.create(product), product);
     }
 
     @Test
     void testFind() {
         Product productToFind = new Product();
-        productToFind.setProductId("eb558e9f-1c39-460e-8860-71af6af63bd6");
-        productToFind.setProductName("Sampo Cap Bambang");
-        productToFind.setProductQuantity(100);
+        productToFind.setId("eb558e9f-1c39-460e-8860-71af6af63bd6");
+        productToFind.setName("Sampo Cap Bambang");
+        productToFind.setQuantity(100);
 
-        when(productRepository.find("eb558e9f-1c39-460e-8860-71af6af63bd6")).thenReturn(productToFind);
-        assertEquals(productService.find("eb558e9f-1c39-460e-8860-71af6af63bd6"), productToFind);
+        when(productRepository.findById("eb558e9f-1c39-460e-8860-71af6af63bd6")).thenReturn(productToFind);
+        assertEquals(productService.findById("eb558e9f-1c39-460e-8860-71af6af63bd6"), productToFind);
     }
 
     @Test
     void testFindAll() {
         Product product1 = new Product();
-        product1.setProductId("eb558e9f-1c39-460e-8860-71af6af63bd6");
-        product1.setProductName("Sampo Cap Bambang");
-        product1.setProductQuantity(100);
+        product1.setId("eb558e9f-1c39-460e-8860-71af6af63bd6");
+        product1.setName("Sampo Cap Bambang");
+        product1.setQuantity(100);
 
         Product product2 = new Product();
-        product2.setProductId("eb558e9f-1c39-460e-8860-71af6af63bd6");
-        product2.setProductName("Farrell Muhammad Hanau");
-        product2.setProductQuantity(100);
+        product2.setId("eb558e9f-1c39-460e-8860-71af6af63bd6");
+        product2.setName("Farrell Muhammad Hanau");
+        product2.setQuantity(100);
 
         List<Product> productList1 = new ArrayList<>();
         productList1.add(product1);
@@ -83,27 +79,26 @@ class ProductServiceImplTest {
     @Test
     void testEdit(){
         Product editedProduct = new Product();
-        editedProduct.setProductId("eb558e9f-1c39-460e-8860-71af6af63bd6");
-        editedProduct.setProductName("Sampo Cap Bambang");
-        editedProduct.setProductQuantity(100);
+        editedProduct.setId("eb558e9f-1c39-460e-8860-71af6af63bd6");
+        editedProduct.setName("Sampo Cap Bambang");
+        editedProduct.setQuantity(100);
 
-        when(productRepository.edit(editedProduct.getProductId(), editedProduct.getProductName(), editedProduct.getProductQuantity())).thenReturn(editedProduct);
-        Product retValProduct = productService.edit(editedProduct);
+        when(productRepository.update(editedProduct.getId(), editedProduct)).thenReturn(editedProduct);
 
-        assertEquals(retValProduct.getProductId(), editedProduct.getProductId());
-        assertEquals(retValProduct.getProductName(), editedProduct.getProductName());
-        assertEquals(retValProduct.getProductQuantity(), editedProduct.getProductQuantity());
+        productService.update(editedProduct.getId(), editedProduct);
+
+        verify(productRepository).update(editedProduct.getId(), editedProduct);
     }
 
     @Test
     void testDelete(){
         Product deletedProduct = new Product();
-        deletedProduct.setProductId("eb558e9f-1c39-460e-8860-71af6af63bd6");
-        deletedProduct.setProductName("Sampo Cap Bambang");
-        deletedProduct.setProductQuantity(100);
+        deletedProduct.setId("eb558e9f-1c39-460e-8860-71af6af63bd6");
+        deletedProduct.setName("Sampo Cap Bambang");
+        deletedProduct.setQuantity(100);
 
-        when(productRepository.delete(deletedProduct.getProductId())).thenReturn(deletedProduct);
-
-        assertEquals(productService.delete("eb558e9f-1c39-460e-8860-71af6af63bd6"), deletedProduct);
+        doNothing().when(productRepository).delete(any());
+        productService.deleteById(deletedProduct.getId());
+        verify(productRepository).delete(deletedProduct.getId());
     }
 }
