@@ -52,9 +52,9 @@ class ProductControllerTest {
     @Test
     void productListPageTest() throws Exception {
         Product product = new Product();
-        product.setProductId("eb558e9f-1c39-460e-8860-71af6af63bd6");
-        product.setProductName("Sampo Cap Bambang");
-        product.setProductQuantity(100);
+        product.setId("eb558e9f-1c39-460e-8860-71af6af63bd6");
+        product.setName("Sampo Cap Bambang");
+        product.setQuantity(100);
 
         List<Product> productList = new ArrayList<>();
         productList.add(product);
@@ -70,13 +70,13 @@ class ProductControllerTest {
     @Test
     void editProductPageTest() throws Exception {
         Product product = new Product();
-        product.setProductId("eb558e9f-1c39-460e-8860-71af6af63bd6");
-        product.setProductName("Sampo Cap Bambang");
-        product.setProductQuantity(100);
+        product.setId("eb558e9f-1c39-460e-8860-71af6af63bd6");
+        product.setName("Sampo Cap Bambang");
+        product.setQuantity(100);
 
-        when(productService.find(product.getProductId())).thenReturn(product);
+        when(productService.findById(product.getId())).thenReturn(product);
 
-        mockMvc.perform(MockMvcRequestBuilders.get("/product/edit/{id}", product.getProductId()))
+        mockMvc.perform(MockMvcRequestBuilders.get("/product/edit/{id}", product.getId()))
                 .andExpect(MockMvcResultMatchers.status().isOk())
                 .andExpect(MockMvcResultMatchers.model().attribute("product", product))
                 .andExpect((MockMvcResultMatchers.view().name("EditProduct")));

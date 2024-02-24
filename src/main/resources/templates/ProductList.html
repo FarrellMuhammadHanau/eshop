@@ -22,14 +22,14 @@
         </thead>
         <tbody>
         <tr th:each="product: ${products}">
-            <td th:text="${product.productName}"></td>
-            <td th:text="${product.productQuantity}"></td>
+            <td th:text="${product.name}"></td>
+            <td th:text="${product.quantity}"></td>
             <td>
-                <a th:href="@{'/product/edit/' + ${product.productId}}" class="btn btn-primary btn-sm mb-3">Edit</a>
+                <a th:href="@{'/product/edit/' + ${product.id}}" class="btn btn-primary btn-sm mb-3">Edit</a>
             </td>
             <td>
                 <form th:action="@{'/product/delete'}" method="post">
-                    <input type="hidden" th:name="id" th:value="${product.productId}">
+                    <input type="hidden" th:name="id" th:value="${product.id}">
                     <button type="submit" class="btn btn-danger">Delete</button>
                 </form>
             </td>

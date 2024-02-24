@@ -1,6 +1,8 @@
 package id.ac.ui.cs.advprog.eshop.service;
 
+import id.ac.ui.cs.advprog.eshop.model.Car;
 import id.ac.ui.cs.advprog.eshop.model.Product;
+import id.ac.ui.cs.advprog.eshop.repository.IRepository;
 import id.ac.ui.cs.advprog.eshop.repository.ProductRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -11,9 +13,11 @@ import java.util.List;
 
 @Service
 public class ProductServiceImpl implements ProductService {
+    private final IRepository<Product> productRepository;
 
-    @Autowired
-    private ProductRepository productRepository;
+    public ProductServiceImpl(IRepository<Product> productRepository){
+        this.productRepository = productRepository;
+    }
 
     @Override
     public Product create(Product product){
@@ -22,8 +26,9 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
-    public Product find(String id){
-        return productRepository.find(id);
+    public Product findById(String id){
+        Product product = productRepository.findById(id);
+        return product;
     }
 
     @Override
@@ -35,12 +40,13 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
-    public Product edit(Product product){
-        return productRepository.edit(product.getProductId(), product.getProductName(), product.getProductQuantity());
+    public void update(String id, Product product){
+        // TODO Auto Generated method stub
+        productRepository.update(id, product);
     }
 
     @Override
-    public Product delete(String id){
-        return productRepository.delete(id);
+    public void deleteById(String id){
+        productRepository.delete(id);
     }
 }
