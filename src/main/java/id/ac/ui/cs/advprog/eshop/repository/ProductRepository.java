@@ -1,5 +1,6 @@
 package id.ac.ui.cs.advprog.eshop.repository;
 
+import id.ac.ui.cs.advprog.eshop.model.Car;
 import id.ac.ui.cs.advprog.eshop.model.Product;
 import org.springframework.stereotype.Repository;
 
@@ -10,7 +11,7 @@ import java.util.UUID;
 import java.util.HashSet;
 
 @Repository
-public class ProductRepository {
+public class ProductRepository implements IRepository<Product>{
     private List<Product> productData = new ArrayList<>();
     private HashSet<String> generatedId = new HashSet<>();
 
@@ -20,38 +21,41 @@ public class ProductRepository {
         while (generatedId.contains(id)){
             id = UUID.randomUUID().toString();
         }
-        product.setProductId(id);
+        product.setId(id);
 
         productData.add(product);
         return product;
     }
 
-    public Product find(String id) throws IllegalArgumentException{
-      for (Product product : productData){
-          if (product.getProductId().equals(id)){
-              return product;
-          }
-      }
+    public Product findById(String id){
+        for(Product product: productData){
+            if(product.getId().equals(id)){
+                return product;
+            }
+        }
 
-      throw new IllegalArgumentException("Product Doesn't Exist");
-    };
+        return null;
+    }
 
     public Iterator<Product> findAll() {
         return productData.iterator();
     }
 
-    public Product edit(String id, String newName, int newQuantity) throws IllegalArgumentException{
-        Product product = find(id);
+    public Product update(String id, Product updatedProduct){
+        for(int i = 0; i < productData.size(); i++){
+            Product product = productData.get(i);
+            if(product.getId().equals(id)){
+                product.setName(updatedProduct.getName());
+                product.setQuantity(updatedProduct.getQuantity());
+                return product;
+            }
+        }
 
-        product.setProductName(newName);
-        product.setProductQuantity(newQuantity);
-
-        return product;
+        return null;
     }
 
-    public Product delete(String id){
-        Product product = find(id);
+    public void delete(String id){
+        Product product = findById(id);
         productData.remove(product);
-        return product;
     }
 }
