@@ -5,5 +5,7 @@ import lombok.Setter;
 
 @Getter @Setter
 public class Car extends Entity{
+    private String name;
+    private int quantity;
     private String color;
 }

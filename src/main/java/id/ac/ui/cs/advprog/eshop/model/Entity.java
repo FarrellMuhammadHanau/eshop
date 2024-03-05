@@ -5,7 +5,5 @@ import lombok.Setter;
 
 @Getter @Setter
 public abstract class Entity {
-    private String name;
     private String id;
-    private int quantity;
 }
