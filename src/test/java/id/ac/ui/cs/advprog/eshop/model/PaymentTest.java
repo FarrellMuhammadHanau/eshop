@@ -1,5 +1,7 @@
 package id.ac.ui.cs.advprog.eshop.model;
 
+import id.ac.ui.cs.advprog.eshop.enums.PaymentMethod;
+import id.ac.ui.cs.advprog.eshop.enums.PaymentStatus;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
@@ -23,54 +25,54 @@ public class PaymentTest {
 
     @Test
     void testCreateValidVoucher() {
-        Payment payment = new Payment("136522556-012a-4c07-b546-54eb1396d79b", "Voucher",
+        Payment payment = new Payment("136522556-012a-4c07-b546-54eb1396d79b", PaymentMethod.VOUCHER.getValue(),
                 voucherPaymentData);
-        assertEquals(payment.getStatus(), "SUCCESS");
+        assertEquals(payment.getStatus(), PaymentStatus.SUCCESS.getValue());
     }
 
     @Test
     void testCreateVoucherInvalidVoucherCode() {
         voucherPaymentData.put("voucherCode", "ESHOP1234ABC567");
-        Payment payment = new Payment("136522556-012a-4c07-b546-54eb1396d79b", "Voucher",
+        Payment payment = new Payment("136522556-012a-4c07-b546-54eb1396d79b", PaymentMethod.VOUCHER.getValue(),
                 voucherPaymentData);
-        assertEquals(payment.getStatus(), "REJECTED");
+        assertEquals(payment.getStatus(), PaymentStatus.REJECTED.getValue());
     }
 
     @Test
     void testCreateVoucherInvalidPaymentData() {
         assertThrows(IllegalArgumentException.class, () -> {
-            Payment payment = new Payment("136522556-012a-4c07-b546-54eb1396d79b", "Voucher",
+            Payment payment = new Payment("136522556-012a-4c07-b546-54eb1396d79b", PaymentMethod.VOUCHER.getValue(),
                     bankTransferPaymentData);
         });
     }
 
     @Test
     void testCreateValidBankTransfer() {
-        Payment payment = new Payment("136522556-012a-4c07-b546-54eb1396d79b", "BankTransfer",
+        Payment payment = new Payment("136522556-012a-4c07-b546-54eb1396d79b", PaymentMethod.BANKTRANSFER.getValue(),
                 bankTransferPaymentData);
-        assertEquals(payment.getStatus(), "SUCCESS");
+        assertEquals(payment.getStatus(), PaymentStatus.SUCCESS.getValue());
     }
 
     @Test
     void testCreateBankTransferBlankBankName() {
         bankTransferPaymentData.put("bankName", "");
-        Payment payment = new Payment("136522556-012a-4c07-b546-54eb1396d79b", "BankTransfer",
+        Payment payment = new Payment("136522556-012a-4c07-b546-54eb1396d79b", PaymentMethod.BANKTRANSFER.getValue(),
                 bankTransferPaymentData);
-        assertEquals(payment.getStatus(), "REJECTED");
+        assertEquals(payment.getStatus(), PaymentStatus.REJECTED.getValue());
     }
 
     @Test
     void testCreateBankTransferBlankReferenceCode() {
         bankTransferPaymentData.put("referenceCode", "");
-        Payment payment = new Payment("136522556-012a-4c07-b546-54eb1396d79b", "BankTransfer",
+        Payment payment = new Payment("136522556-012a-4c07-b546-54eb1396d79b", PaymentMethod.BANKTRANSFER.getValue(),
                 bankTransferPaymentData);
-        assertEquals(payment.getStatus(), "REJECTED");
+        assertEquals(payment.getStatus(), PaymentStatus.REJECTED.getValue());
     }
 
     @Test
     void testCreateBankTransferInvalidPaymentData() {
         assertThrows(IllegalArgumentException.class, () -> {
-            Payment payment = new Payment("136522556-012a-4c07-b546-54eb1396d79b", "BankTransfer",
+            Payment payment = new Payment("136522556-012a-4c07-b546-54eb1396d79b", PaymentMethod.BANKTRANSFER.getValue(),
                     voucherPaymentData);
         });
     }
@@ -85,15 +87,15 @@ public class PaymentTest {
 
     @Test
     void testSetStatusToRejected() {
-        Payment payment = new Payment("136522556-012a-4c07-b546-54eb1396d79b", "Voucher",
+        Payment payment = new Payment("136522556-012a-4c07-b546-54eb1396d79b", PaymentMethod.VOUCHER.getValue(),
                 voucherPaymentData);
         payment.setStatus("REJECTED");
-        assertEquals(payment.getStatus(), "REJECTED");
+        assertEquals(payment.getStatus(), PaymentStatus.REJECTED.getValue());
     }
 
     @Test
     void testSetStatusToInvalid() {
-        Payment payment = new Payment("136522556-012a-4c07-b546-54eb1396d79b", "Voucher",
+        Payment payment = new Payment("136522556-012a-4c07-b546-54eb1396d79b", PaymentMethod.VOUCHER.getValue(),
                 voucherPaymentData);
         assertThrows(IllegalArgumentException.class, () -> payment.setStatus("byebye"));
     }

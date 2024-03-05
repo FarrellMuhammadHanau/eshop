@@ -17,7 +17,7 @@ public class Payment {
     public Payment(String id, String method, Map<String, String> paymentData) {
         this.id = id;
 
-        if (method == null || (!method.equals(PaymentMethod.VOUCHER.getValue()) && !method.equals(PaymentMethod.BANKTRANSFER.getValue()))){
+        if (method == null || !PaymentMethod.contains(method)){
             throw new IllegalArgumentException();
         }
 
@@ -58,7 +58,7 @@ public class Payment {
     }
 
     public void setStatus(String newStatus){
-        if (newStatus == null || (!newStatus.equals(PaymentStatus.REJECTED.getValue()) && !newStatus.equals(PaymentStatus.SUCCESS.getValue()))){
+        if (newStatus == null || !PaymentStatus.contains(newStatus)){
             throw new IllegalArgumentException();
         }
         this.status = newStatus;
