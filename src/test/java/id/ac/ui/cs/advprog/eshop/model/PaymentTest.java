@@ -23,7 +23,7 @@ public class PaymentTest {
 
     @Test
     void testCreateValidVoucher() {
-        Payment payment = new Payment("136522556-012a-4c07-b546-54eb1396d79b", "voucher",
+        Payment payment = new Payment("136522556-012a-4c07-b546-54eb1396d79b", "Voucher",
                 voucherPaymentData);
         assertEquals(payment.getStatus(), "SUCCESS");
     }
