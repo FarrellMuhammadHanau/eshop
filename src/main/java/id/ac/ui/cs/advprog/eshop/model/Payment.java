@@ -1,5 +1,7 @@
 package id.ac.ui.cs.advprog.eshop.model;
 
+import id.ac.ui.cs.advprog.eshop.enums.PaymentMethod;
+import id.ac.ui.cs.advprog.eshop.enums.PaymentStatus;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -15,27 +17,27 @@ public class Payment {
     public Payment(String id, String method, Map<String, String> paymentData) {
         this.id = id;
 
-        if (method == null || (!method.equals("Voucher") && !method.equals("BankTransfer"))){
+        if (method == null || (!method.equals(PaymentMethod.VOUCHER.getValue()) && !method.equals(PaymentMethod.BANKTRANSFER.getValue()))){
             throw new IllegalArgumentException();
         }
 
         this.method = method;
-        if (this.method.equals("Voucher")){
+        if (this.method.equals(PaymentMethod.VOUCHER.getValue())){
             if (!paymentData.containsKey("voucherCode")) {
                 throw new IllegalArgumentException();
             }
 
             if (paymentData.get("voucherCode").length() != 16){
-                this.status = "REJECTED";
+                this.status = PaymentStatus.REJECTED.getValue();
             }
             else if (!paymentData.get("voucherCode").startsWith("ESHOP")){
-                this.status = "REJECTED";
+                this.status = PaymentStatus.REJECTED.getValue();
             }
             else if (countNumericalChar(paymentData.get("voucherCode")) != 8){
-                this.status = "REJECTED";
+                this.status = PaymentStatus.REJECTED.getValue();
             }
             else {
-                this.status = "SUCCESS";
+                this.status = PaymentStatus.SUCCESS.getValue();
             }
         }
         else {
@@ -44,19 +46,19 @@ public class Payment {
             }
 
             if (paymentData.get("bankName") == null || paymentData.get("bankName").equals("")){
-                this.status = "REJECTED";
+                this.status = PaymentStatus.REJECTED.getValue();
             }
             else if (paymentData.get("referenceCode") == null || paymentData.get("referenceCode").equals("")){
-                this.status = "REJECTED";
+                this.status = PaymentStatus.REJECTED.getValue();
             }
             else {
-                this.status = "SUCCESS";
+                this.status = PaymentStatus.SUCCESS.getValue();
             }
         }
     }
 
     public void setStatus(String newStatus){
-        if (newStatus == null || (!newStatus.equals("REJECTED") && !newStatus.equals("SUCCESS"))){
+        if (newStatus == null || (!newStatus.equals(PaymentStatus.REJECTED.getValue()) && !newStatus.equals(PaymentStatus.SUCCESS.getValue()))){
             throw new IllegalArgumentException();
         }
         this.status = newStatus;
