@@ -32,3 +32,15 @@ Saat membuat fitur-fitur tersebut, saya telah membuat code yang jauh lebih _clea
 
 3) Explain the disadvantages of not applying SOLID principles to your project with examples.
    Jika saya tidak menerapkan SOLID principles pada proyek saya, maka code saya akan terasa lebih kaku dan rumit. Misal saya ingin memodifikasi bagian Product Controller. Maka jika tidak saya pisah, Car controller juga akan terpengaruh meskipun seharusnya tidak. Selain itu, jika saya tidak menerapkan DIP pada kode saya, maka perubahan pada repository struktur pada repositori akan merusak service dan kerusakan pada service juga akan mengakibatkan kerusakan pada controller.
+
+# Module 4
+1) Reflect based on Percival (2017) proposed self-reflective questions (in “Principles and Best Practice of Testing” submodule, chapter “Evaluating Your Testing Objectives”), whether this TDD flow is useful enough for you or not. If not, explain things that you need to do next time you make more tests.
+   Menurut saya, TDD flow sangat berguna bagi saya. Pada TDD, saya membuat test terlebih dahulu dimana saya harus memikirkan semua kemungkinan happy dan unhappy path yang ada. Setelah membuat test case tersebut, saya membuat implementasi dari test tersebut dan pada akhirnya dilakukan refactor. Dengan cara seperti itu, saya dapat tidak perlu menyesuaikan test terhadap implementasinya. Selain itu, saya tahu kasus apa yang belum saya handle saat mengimplementasikan class.
+
+2) You have created unit tests in Tutorial. Now reflect whether your tests have successfully followed F.I.R.S.T. principle or not. If not, explain things that you need to do the next time you create more tests.
+   Saya telah mengimplementasikan beberapa prinsip F.I.R.S.T. pada unit test saya, dimana
+   1. Fast: unit test dieksekusi cukup cepat untuk sebagian besar kasus
+   2. Independent: unit test yang saya buat independen terhadap satu sama lain
+   3. Repeatable: dapat dijalankan kapan saja
+   4. Self Validating: Unit test saya menggunakan beberapa jenis assertion untuk mengecek apakah pass atau fail
+   5. Through/Timely: Test yang saya buat mungkin mengcover happy/unhappy path
