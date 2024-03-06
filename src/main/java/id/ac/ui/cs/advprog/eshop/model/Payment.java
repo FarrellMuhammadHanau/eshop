@@ -55,6 +55,7 @@ public class Payment {
                 this.status = PaymentStatus.SUCCESS.getValue();
             }
         }
+        this.paymentData = paymentData;
     }
 
     public void setStatus(String newStatus){

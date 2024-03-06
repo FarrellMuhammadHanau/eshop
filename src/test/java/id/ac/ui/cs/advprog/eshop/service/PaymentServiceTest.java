@@ -37,9 +37,9 @@ public class PaymentServiceTest {
 
     @BeforeEach
     void setUp() {
-        Map<String, String> voucherPaymentData1 = new HashMap<>();
-        voucherPaymentData1.put("voucherCode", "ESHOP1234ABC5678");
-        payment = new Payment("136522556-012a-4c07-b546-54eb1396d79b", "VOUCHER", voucherPaymentData1);
+        Map<String, String> voucherPaymentData = new HashMap<>();
+        voucherPaymentData.put("voucherCode", "ESHOP1234ABC5678");
+        payment = new Payment("136522556-012a-4c07-b546-54eb1396d79b", "VOUCHER", voucherPaymentData);
 
         List<Product> products1 = new ArrayList<>();
         Product product1 = new Product();
@@ -79,7 +79,6 @@ public class PaymentServiceTest {
 
     @Test
     void testSetStatusInvalid() {
-        doReturn(order).when(paymentRepository).findOrderByPaymentId(payment.getId());
         assertThrows(IllegalArgumentException.class, () -> {
            paymentService.setStatus(payment, "ByeBye");
         });
@@ -93,8 +92,7 @@ public class PaymentServiceTest {
     }
 
     @Test
-    void testGetPaymentNontExist() {
-        doReturn(payment).when(paymentRepository).findById(payment.getId());
+    void testGetPaymentNotExist() {
         doReturn(null).when(paymentRepository).findById("ByeBye");
         assertThrows(IllegalArgumentException.class, () -> {
            paymentService.getPayment("ByeBye");
