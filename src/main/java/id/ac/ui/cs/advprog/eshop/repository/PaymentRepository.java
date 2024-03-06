@@ -14,11 +14,40 @@ public class PaymentRepository {
     private List<Payment> paymentData = new ArrayList<>();
     private Map<String, Order> ordermap = new HashMap<>();
 
-    public Payment save(Payment payment, Order order) {return null;}
+    public Payment save(Payment payment, Order order) {
+        if (ordermap.containsKey(payment.getId())){
+            throw new IllegalArgumentException();
+        }
 
-    public Payment findById(String id) {return null;}
+        for (String key : ordermap.keySet()) {
+            if (order == ordermap.get(key)) {
+                throw new IllegalArgumentException();
+            }
+        }
 
-    public List<Payment> findAll() {return null;}
+        paymentData.add(payment);
+        ordermap.put(payment.getId(), order);
 
-    public Order findOrderByPaymentId(String id) {return null;}
+        return payment;
+    }
+
+    public Payment findById(String id) {
+        for (Payment tempPayment : paymentData) {
+            if (tempPayment.getId().equals(id)) {
+                return tempPayment;
+            }
+        }
+        return null;
+    }
+
+    public List<Payment> findAll() {
+        return new ArrayList<>(paymentData);
+    }
+
+    public Order findOrderByPaymentId(String id) {
+        if (!ordermap.containsKey(id)) {
+            return null;
+        }
+        return ordermap.get(id);
+    }
 }
