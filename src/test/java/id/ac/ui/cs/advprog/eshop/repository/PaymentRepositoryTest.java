@@ -24,7 +24,7 @@ public class PaymentRepositoryTest {
 
         Map<String, String> voucherPaymentData1 = new HashMap<>();
         voucherPaymentData1.put("voucherCode", "ESHOP1234ABC5678");
-        payment1 = new Payment("136522556-012a-4c07-b546-54eb1396d79b", "VOUCHER", voucherPaymentData1);
+        payment1 = new Payment("136522556-012a-4c07-b546-54eb1396d79b", PaymentMethod.VOUCHER.getValue(), voucherPaymentData1);
 
         List<Product> products1 = new ArrayList<>();
         Product product1 = new Product();
@@ -39,7 +39,7 @@ public class PaymentRepositoryTest {
 
         Map<String, String> voucherPaymentData2 = new HashMap<>();
         voucherPaymentData2.put("voucherCode", "ESHOP1234ABC5678");
-        payment2 = new Payment("136522556-012a-4c07-b546-54eb1396d79c", "VOUCHER", voucherPaymentData2);
+        payment2 = new Payment("136522556-012a-4c07-b546-54eb1396d79c", PaymentMethod.VOUCHER.getValue(), voucherPaymentData2);
 
 
         List<Product> products2 = new ArrayList<>();
