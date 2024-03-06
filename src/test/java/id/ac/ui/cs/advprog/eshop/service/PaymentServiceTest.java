@@ -1,6 +1,7 @@
 package id.ac.ui.cs.advprog.eshop.service;
 
 import id.ac.ui.cs.advprog.eshop.enums.PaymentMethod;
+import id.ac.ui.cs.advprog.eshop.enums.PaymentStatus;
 import id.ac.ui.cs.advprog.eshop.model.Order;
 import id.ac.ui.cs.advprog.eshop.model.Payment;
 import id.ac.ui.cs.advprog.eshop.model.Product;
@@ -39,7 +40,7 @@ public class PaymentServiceTest {
     void setUp() {
         Map<String, String> voucherPaymentData = new HashMap<>();
         voucherPaymentData.put("voucherCode", "ESHOP1234ABC5678");
-        payment = new Payment("136522556-012a-4c07-b546-54eb1396d79b", "VOUCHER", voucherPaymentData);
+        payment = new Payment("136522556-012a-4c07-b546-54eb1396d79b", PaymentMethod.VOUCHER.getValue(), voucherPaymentData);
 
         List<Product> products1 = new ArrayList<>();
         Product product1 = new Product();
@@ -62,7 +63,7 @@ public class PaymentServiceTest {
     @Test
     void testSetStatusSuccess() {
         doReturn(order).when(paymentRepository).findOrderByPaymentId(payment.getId());
-        Payment tempPayment = paymentService.setStatus(payment, "SUCCESS");
+        Payment tempPayment = paymentService.setStatus(payment, PaymentStatus.SUCCESS.getValue());
         assertEquals(tempPayment, payment);
         assertEquals(payment.getStatus(), "SUCCESS");
         assertEquals(order.getStatus(), "SUCCESS");
@@ -71,7 +72,7 @@ public class PaymentServiceTest {
     @Test
     void testSetStatusRejected() {
         doReturn(order).when(paymentRepository).findOrderByPaymentId(payment.getId());
-        Payment tempPayment = paymentService.setStatus(payment, "REJECTED");
+        Payment tempPayment = paymentService.setStatus(payment, PaymentStatus.REJECTED.getValue());
         assertEquals(tempPayment, payment);
         assertEquals(payment.getStatus(), "REJECTED");
         assertEquals(order.getStatus(), "FAILED");
